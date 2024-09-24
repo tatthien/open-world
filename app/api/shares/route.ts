@@ -1,11 +1,11 @@
+import { connectDatabase } from "@/lib/db";
+import Post from "@/lib/db/models/post";
 import { NextRequest, NextResponse } from "next/server";
-import { nanoid } from 'nanoid'
-import dayjs from 'dayjs'
-import { db } from "@/lib/db";
+
+await connectDatabase()
 
 export async function GET() {
-  const posts = [...db.data.posts]
-  posts.sort((a, b) => dayjs(b.createdAt).unix() - dayjs(a.createdAt).unix())
+  const posts = await Post.find({ status: 'published' }).sort({ createdAt: -1 })
   return NextResponse.json({ data: posts }, { status: 200 })
 }
 
@@ -17,12 +17,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'content is missing' }, { status: 400 })
     }
 
-    await db.update(({ posts }) => posts.push({
-      id: nanoid(),
+    const post = new Post({
       content: body.content,
-      createdAt: new Date().toISOString()
-    }))
-    await db.write()
+      status: 'published',
+    })
+    await post.save()
 
     return NextResponse.json({}, { status: 201 })
   } catch (err) {

@@ -1,5 +1,7 @@
-import { Data } from '@/types'
-import { JSONFilePreset } from 'lowdb/node'
+import mongoose from 'mongoose'
 
-const defaultData: Data = { posts: [] }
-export const db = await JSONFilePreset('db.json', defaultData)
+export async function connectDatabase() {
+  const uri = process.env.MONGO_DB_URL;
+  await mongoose.connect(uri)
+}
+

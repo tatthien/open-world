@@ -1,13 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
-import { db } from "@/lib/db"
+import { connectDatabase } from "@/lib/db"
+import Post from '@/lib/db/models/post'
+
+await connectDatabase()
 
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id
-
-  console.log('>>> [id]:', id)
-
-  const post = db.data.posts.find((post) => post.id === id)
-
+  const post = await Post.findOne({
+    _id: id,
+    status: 'published'
+  })
   if (!post) {
     return NextResponse.json({ message: 'post not found' }, { status: 404 })
   }

@@ -15,7 +15,7 @@ export function PostItem({ item, fullContent = false }: PostItemProps) {
   const { content, createdAt } = item
 
   return (
-    <Link href={`/posts/${item.id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
+    <Link href={`/posts/${item._id}`} style={{ textDecoration: 'none', display: 'block', height: '100%' }}>
       <Paper withBorder radius={10} shadow='sm' p={16} h='100%'>
         <Flex gap={10}>
           <Avatar name={nanoid()} variant="beam" size={40} style={{ flexShrink: 0 }} colors={["#5b1d99", "#0074b4", "#00b34c", "#ffd41f", "#fc6e3d"]} />
