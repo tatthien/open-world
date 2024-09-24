@@ -19,7 +19,6 @@ export async function POST(req: NextRequest) {
 
     const post = new Post({
       content: body.content,
-      status: 'published',
     })
     await post.save()
 
