@@ -16,7 +16,7 @@ export function PostList() {
     <Grid gutter="16">
       {
         posts.map((post) => (
-          <Grid.Col span={{ base: 12, sm: 6 }} key={post.id}>
+          <Grid.Col span={{ base: 12, sm: 12 }} key={post.id}>
             <PostItem item={post} />
           </Grid.Col>
         ))
