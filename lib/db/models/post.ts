@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 const schema = new mongoose.Schema({
   content: {
     type: String,
-    minLength: [1, 'content is required.'],
-    maxLength: [5000, 'content is too long. Must be less than 5000 characters.'],
+    required: [true, 'content is required'],
+    maxLength: [5000, 'content cannot be more than 5000 characters'],
   },
   createdAt: {
     type: Date,
