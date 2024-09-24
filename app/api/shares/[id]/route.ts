@@ -5,8 +5,10 @@ import { NextRequest, NextResponse } from "next/server"
 const defaultData: Data = { posts: [] }
 const db = await JSONFilePreset('db.json', defaultData)
 
-export async function GET(res: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id
+
+  console.log('>>> [id]:', id)
 
   const post = db.data.posts.find((post) => post.id === id)
 
