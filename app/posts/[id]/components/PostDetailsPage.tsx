@@ -1,0 +1,38 @@
+'use client'
+
+import { Post } from "@/types";
+import { Box, Stack, Container, Button, Paper, Text, Flex } from "@mantine/core";
+import { IconArrowLeft } from '@tabler/icons-react'
+import { useRouter } from "next/navigation";
+import Avatar from "boring-avatars";
+import { humanizeTime } from "@/utils/humanizeTime";
+import { nanoid } from "nanoid";
+
+export function PostDetailsPage({
+  post
+}: { post: Post }) {
+  const router = useRouter()
+  const { createdAt, content } = post
+
+  return (
+    <Stack flex={1} py={40} bg={'gray.2'}>
+      <Box>
+        <Container>
+          <Button variant="transparent" color="dark" fw={500} leftSection={<IconArrowLeft size={18} />} mb={18} onClick={() => router.back()}>Quay lại</Button>
+          <Paper withBorder radius={10} shadow='sm' p={16} h='100%'>
+            <Flex gap={10}>
+              <Avatar name={nanoid()} variant="beam" size={40} style={{ flexShrink: 0 }} colors={["#5b1d99", "#0074b4", "#00b34c", "#ffd41f", "#fc6e3d"]} />
+              <Stack gap={10}>
+                <Stack gap={0}>
+                  <Text c='dark.7' fz='sm' fw={500}>Ẩn danh</Text>
+                  <Text fz='sm' c='gray.8'>{humanizeTime(createdAt)}</Text>
+                </Stack>
+                <Text c='dark.7' style={{ whiteSpace: 'pre-wrap' }} >{content}</Text>
+              </Stack>
+            </Flex>
+          </Paper>
+        </Container>
+      </Box>
+    </Stack>
+  )
+}

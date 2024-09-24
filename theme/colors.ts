@@ -1,0 +1,40 @@
+import { MantineColorsTuple } from '@mantine/core'
+
+export const colors: Record<string, MantineColorsTuple> = {
+  gray: [
+    '#fdfdfd',
+    '#f8f8f8',
+    '#f4f4f4',
+    '#f0f0f0',
+    '#ededed',
+    '#e8e8e8',
+    '#d3d3d3',
+    '#a5a5a5',
+    '#808080',
+    '#616161',
+  ],
+  dark: [
+    '#eaeaea',
+    '#bdbdbd',
+    '#9d9d9d',
+    '#707070',
+    '#545454',
+    '#292929',
+    '#252525',
+    '#1d1d1d',
+    '#171717',
+    '#111111',
+  ],
+  red: [
+    '#fdecea',
+    '#f8c3be',
+    '#f5a69e',
+    '#f17e72',
+    '#ee6556',
+    '#ea3e2c',
+    '#d53828',
+    '#a62c1f',
+    '#812218',
+    '#621a12',
+  ],
+}
