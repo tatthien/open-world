@@ -1,12 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { JSONFilePreset } from 'lowdb/node'
-import { Data } from "@/types";
 import { nanoid } from 'nanoid'
 import dayjs from 'dayjs'
-
-
-const defaultData: Data = { posts: [] }
-const db = await JSONFilePreset('db.json', defaultData)
+import { db } from "@/lib/db";
 
 export async function GET() {
   const posts = [...db.data.posts]

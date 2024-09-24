@@ -1,9 +1,5 @@
-import { Data } from "@/types"
-import { JSONFilePreset } from "lowdb/node"
 import { NextRequest, NextResponse } from "next/server"
-
-const defaultData: Data = { posts: [] }
-const db = await JSONFilePreset('db.json', defaultData)
+import { db } from "@/lib/db"
 
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id
