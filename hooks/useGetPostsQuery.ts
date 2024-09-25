@@ -1,5 +1,5 @@
-import { Post } from "@/types"
-import { useQuery } from "@tanstack/react-query"
+import { Post } from '@/types'
+import { useQuery } from '@tanstack/react-query'
 
 export const useGetPostsQuery = () => {
   return useQuery({
@@ -8,6 +8,6 @@ export const useGetPostsQuery = () => {
       const res = await fetch('/api/shares')
       const json = await res.json()
       return json.data
-    }
+    },
   })
 }

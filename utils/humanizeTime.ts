@@ -7,4 +7,3 @@ export function humanizeTime(time: string | Date) {
   const duration = dayjs.duration(diff, unit)
   return duration.locale('vi').humanize(true)
 }
-

@@ -10,15 +10,19 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  status: {
+  entity: {
+    type: mongoose.Schema.Types.ObjectId,
+    require: true,
+    refPath: 'entityType',
+  },
+  entityType: {
     type: String,
     enum: {
-      values: ['draft', 'published', 'archived'],
+      values: ['Post'],
       message: '{VALUE} is not supported',
     },
-    default: 'published',
+    require: true,
   },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 })
 
-export default mongoose.models.Post || mongoose.model('Post', schema)
+export default mongoose.models.Comment || mongoose.model('Comment', schema)

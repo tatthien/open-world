@@ -1,6 +1,6 @@
-import { useGetPostsQuery } from "@/hooks/useGetPostsQuery"
-import { Loader, Text, Grid } from "@mantine/core"
-import { PostItem } from "./PostItem"
+import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
+import { Loader, Text, Grid } from '@mantine/core'
+import { PostItem } from './PostItem'
 
 export function PostList() {
   const { data: posts, isLoading } = useGetPostsQuery()
@@ -14,13 +14,11 @@ export function PostList() {
 
   return (
     <Grid gutter="16">
-      {
-        posts.map((post) => (
-          <Grid.Col span={{ base: 12, sm: 12 }} key={post.id}>
-            <PostItem item={post} />
-          </Grid.Col>
-        ))
-      }
+      {posts.map((post) => (
+        <Grid.Col span={{ base: 12, sm: 12 }} key={post._id}>
+          <PostItem item={post} />
+        </Grid.Col>
+      ))}
     </Grid>
   )
 }

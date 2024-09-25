@@ -12,7 +12,7 @@ const CONTAINER_SIZES: Record<string, string> = {
   lg: rem(1024),
   xl: rem(1280),
   xxl: rem(1536),
-};
+}
 
 export const theme = createTheme({
   fontFamily: inter.style.fontFamily,
@@ -23,8 +23,7 @@ export const theme = createTheme({
   colors,
   components: {
     Button: Button.extend({
-      defaultProps: {
-      },
+      defaultProps: {},
     }),
     Container: Container.extend({
       vars: (_, { size, fluid }) => ({

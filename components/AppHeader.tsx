@@ -1,5 +1,5 @@
 import { Box, Container, Flex } from '@mantine/core'
-import { SVGProps } from "react"
+import { SVGProps } from 'react'
 import Link from 'next/link'
 
 export function AppHeader() {

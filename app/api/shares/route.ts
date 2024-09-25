@@ -1,6 +1,6 @@
-import { connectDatabase } from "@/lib/db";
-import Post from "@/lib/db/models/post";
-import { NextRequest, NextResponse } from "next/server";
+import { connectDatabase } from '@/lib/db'
+import Post from '@/lib/db/models/post'
+import { NextRequest, NextResponse } from 'next/server'
 
 await connectDatabase()
 
@@ -14,7 +14,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
 
     if (!body.content) {
-      return NextResponse.json({ message: 'content is missing' }, { status: 400 })
+      return NextResponse.json(
+        { message: 'content is missing' },
+        { status: 400 },
+      )
     }
 
     const post = new Post({

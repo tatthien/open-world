@@ -1,8 +1,10 @@
-import { PostDetailsPage } from "./components/PostDetailsPage";
-import { redirect } from "next/navigation";
+import { PostDetailsPage } from './components/PostDetailsPage'
+import { redirect } from 'next/navigation'
 
 const fetchPost = async (id: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/shares/${id}`)
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/shares/${id}`,
+  )
   const json = await res.json()
   return json.data
 }

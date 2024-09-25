@@ -10,7 +10,6 @@ import duration from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/vi'
 
-
 dayjs.extend(duration)
 dayjs.extend(relativeTime)
 

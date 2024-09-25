@@ -2,8 +2,11 @@ export type Post = {
   _id: string
   content: string
   createdAt: string
+  status: 'published' | 'draft' | 'archived'
 }
 
-export type Data = {
-  posts: Post[]
+export type Comment = {
+  _id: string
+  content: string
+  createdAt: string
 }

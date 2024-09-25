@@ -1,8 +1,8 @@
-import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
 import { z } from 'zod'
 import { useForm } from '@mantine/form'
 import { zodResolver } from 'mantine-form-zod-resolver'
 import { Stack, Button, Flex, Textarea } from '@mantine/core'
+import { useGetCommentsQuery } from '@/hooks/useGetCommentsQuery'
 
 const schema = z.object({
   content: z
@@ -12,8 +12,14 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function CreatePostForm() {
-  const { refetch } = useGetPostsQuery()
+export function CreateCommentForm({
+  entity,
+  entityType,
+}: {
+  entity: string
+  entityType: string
+}) {
+  const { refetch } = useGetCommentsQuery(entity, entityType)
 
   const form = useForm<FormData>({
     mode: 'uncontrolled',
@@ -24,9 +30,9 @@ export function CreatePostForm() {
   })
 
   const handleSubmit = async ({ content }: FormData) => {
-    await fetch('/api/shares', {
+    await fetch('/api/comments', {
       method: 'POST',
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, entity, entityType }),
     })
 
     form.reset()
@@ -40,12 +46,12 @@ export function CreatePostForm() {
           label="Chia sẻ của bạn"
           description="Thông tin được đăng dưới trạng thái ẩn danh"
           autosize
-          minRows={4}
+          minRows={2}
           key={form.key('content')}
           {...form.getInputProps('content')}
         />
         <Flex justify="end">
-          <Button type="submit">Gởi</Button>
+          <Button type="submit">Bình luận</Button>
         </Flex>
       </Stack>
     </form>
