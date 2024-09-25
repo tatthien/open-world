@@ -2,7 +2,6 @@ import { humanizeTime } from '@/utils/humanizeTime'
 import { Post } from '@/types'
 import { Paper, Text, Flex, Stack } from '@mantine/core'
 import Avatar from 'boring-avatars'
-import { nanoid } from 'nanoid'
 import Link from 'next/link'
 
 type PostItemProps = {
@@ -11,7 +10,7 @@ type PostItemProps = {
 }
 
 export function PostItem({ item, fullContent = false }: PostItemProps) {
-  const { content, createdAt } = item
+  const { _id, content, createdAt } = item
 
   return (
     <Link
@@ -21,7 +20,7 @@ export function PostItem({ item, fullContent = false }: PostItemProps) {
       <Paper withBorder radius={10} shadow="sm" p={16} h="100%">
         <Flex gap={10}>
           <Avatar
-            name={nanoid()}
+            name={_id}
             variant="beam"
             size={40}
             style={{ flexShrink: 0 }}

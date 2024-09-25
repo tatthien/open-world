@@ -40,7 +40,7 @@ export function CreatePostForm() {
           label="Chia sẻ của bạn"
           description="Thông tin được đăng dưới trạng thái ẩn danh"
           autosize
-          minRows={4}
+          minRows={2}
           key={form.key('content')}
           {...form.getInputProps('content')}
         />
