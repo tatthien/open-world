@@ -5,7 +5,9 @@ import { NextRequest, NextResponse } from 'next/server'
 await connectDatabase()
 
 export async function GET() {
-  const posts = await Post.find({ status: 'published' }).sort({ createdAt: -1 })
+  const posts = await Post.find({ status: 'published' })
+    .populate('commentCount')
+    .sort({ createdAt: -1 })
   return NextResponse.json({ data: posts }, { status: 200 })
 }
 

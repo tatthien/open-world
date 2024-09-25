@@ -1,8 +1,16 @@
 import { humanizeTime } from '@/utils/humanizeTime'
 import { Post } from '@/types'
-import { Paper, Text, Flex, Stack } from '@mantine/core'
+import {
+  Paper,
+  Text,
+  Flex,
+  Stack,
+  getThemeColor,
+  useMantineTheme,
+} from '@mantine/core'
 import Avatar from 'boring-avatars'
 import Link from 'next/link'
+import { IconMessage } from '@tabler/icons-react'
 
 type PostItemProps = {
   item: Post
@@ -10,7 +18,8 @@ type PostItemProps = {
 }
 
 export function PostItem({ item, fullContent = false }: PostItemProps) {
-  const { _id, content, createdAt } = item
+  const { _id, content, createdAt, commentCount } = item
+  const theme = useMantineTheme()
 
   return (
     <Link
@@ -42,6 +51,14 @@ export function PostItem({ item, fullContent = false }: PostItemProps) {
             >
               {content}
             </Text>
+            <Flex align="center">
+              <Flex align="center" gap={4}>
+                <IconMessage size={20} color={getThemeColor('dark.3', theme)} />
+                <Text color="dark.4" fw={500} size="sm" span>
+                  {commentCount}
+                </Text>
+              </Flex>
+            </Flex>
           </Stack>
         </Flex>
       </Paper>

@@ -59,7 +59,6 @@ export function CreateCommentForm({
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Stack gap={12}>
         <Textarea
-          label="Chia sẻ của bạn"
           description="Thông tin được đăng dưới trạng thái ẩn danh"
           autosize
           minRows={2}

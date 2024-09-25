@@ -3,6 +3,7 @@ export type Post = {
   content: string
   createdAt: string
   status: 'published' | 'draft' | 'archived'
+  commentCount: number
 }
 
 export type Comment = {

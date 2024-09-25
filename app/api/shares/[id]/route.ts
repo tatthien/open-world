@@ -12,7 +12,7 @@ export async function GET(
   const post = await Post.findOne({
     _id: id,
     status: 'published',
-  })
+  }).populate('commentCount')
   if (!post) {
     return NextResponse.json({ message: 'post not found' }, { status: 404 })
   }

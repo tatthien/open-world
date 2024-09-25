@@ -1,8 +1,18 @@
 'use client'
 
 import { Post } from '@/types'
-import { Box, Stack, Container, Button, Paper, Text, Flex } from '@mantine/core'
-import { IconArrowLeft } from '@tabler/icons-react'
+import {
+  Box,
+  Stack,
+  Container,
+  Button,
+  Paper,
+  Text,
+  Flex,
+  getThemeColor,
+  useMantineTheme,
+} from '@mantine/core'
+import { IconArrowLeft, IconMessage } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import Avatar from 'boring-avatars'
 import { humanizeTime } from '@/utils/humanizeTime'
@@ -11,7 +21,8 @@ import { CommentSection } from '@/components/CommentSection'
 
 export function PostDetailsPage({ post }: { post: Post }) {
   const router = useRouter()
-  const { createdAt, content } = post
+  const { createdAt, content, commentCount } = post
+  const theme = useMantineTheme()
 
   return (
     <Stack flex={1} py={40} bg={'gray.2'}>
@@ -47,9 +58,17 @@ export function PostDetailsPage({ post }: { post: Post }) {
                 </Stack>
               </Stack>
             </Flex>
-            <Text c="dark.7" style={{ whiteSpace: 'pre-wrap' }}>
+            <Text c="dark.7" style={{ whiteSpace: 'pre-wrap' }} mb={10}>
               {content}
             </Text>
+            <Flex align="center">
+              <Flex align="center" gap={4}>
+                <IconMessage size={20} color={getThemeColor('dark.3', theme)} />
+                <Text color="dark.4" fw={500} size="sm" span>
+                  {commentCount}
+                </Text>
+              </Flex>
+            </Flex>
           </Paper>
           <CommentSection entity={post._id} entityType="Post" />
         </Container>

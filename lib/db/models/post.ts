@@ -18,7 +18,22 @@ const schema = new mongoose.Schema({
     },
     default: 'published',
   },
-  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 })
+
+schema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'entity',
+})
+
+schema.virtual('commentCount', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'entity',
+  count: true,
+})
+
+schema.set('toJSON', { virtuals: true })
+schema.set('toObject', { virtuals: true })
 
 export default mongoose.models.Post || mongoose.model('Post', schema)
