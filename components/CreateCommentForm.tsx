@@ -3,6 +3,8 @@ import { useForm } from '@mantine/form'
 import { zodResolver } from 'mantine-form-zod-resolver'
 import { Stack, Button, Flex, Textarea } from '@mantine/core'
 import { useGetCommentsQuery } from '@/hooks/useGetCommentsQuery'
+import { useMutation } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
 
 const schema = z.object({
   content: z
@@ -29,14 +31,28 @@ export function CreateCommentForm({
     validate: zodResolver(schema),
   })
 
-  const handleSubmit = async ({ content }: FormData) => {
-    await fetch('/api/comments', {
-      method: 'POST',
-      body: JSON.stringify({ content, entity, entityType }),
-    })
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async ({ content }: FormData) => {
+      const res = await fetch('/api/comments', {
+        method: 'POST',
+        body: JSON.stringify({ content, entity, entityType }),
+      })
+      const status = res.status
+      const json = await res.json()
+      if (status !== 200 && status !== 201) {
+        throw new Error(json.message)
+      }
+    },
+  })
 
-    form.reset()
-    refetch()
+  const handleSubmit = async ({ content }: FormData) => {
+    try {
+      await mutateAsync({ content })
+      form.reset()
+      refetch()
+    } catch (err: any) {
+      toast.error(err?.message || 'Something went wrong')
+    }
   }
 
   return (
@@ -51,7 +67,9 @@ export function CreateCommentForm({
           {...form.getInputProps('content')}
         />
         <Flex justify="end">
-          <Button type="submit">Bình luận</Button>
+          <Button type="submit" loading={isPending}>
+            Bình luận
+          </Button>
         </Flex>
       </Stack>
     </form>

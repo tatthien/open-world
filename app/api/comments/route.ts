@@ -1,10 +1,11 @@
 import { connectDatabase } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 import Comment from '@/lib/db/models/comment'
+import { rateLimit } from '@/middlewares/rateLimit'
 
 await connectDatabase()
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
   const query = req.nextUrl.searchParams
   const entity = query.get('entity')
   const entityType = query.get('entityType')
@@ -23,7 +24,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ data: comments }, { status: 200 })
 }
 
-export async function POST(req: NextRequest) {
+export const POST = rateLimit(async (req: NextRequest) => {
   try {
     const body = await req.json()
 
@@ -59,4 +60,4 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     return NextResponse.json({ error: err }, { status: 400 })
   }
-}
+})
