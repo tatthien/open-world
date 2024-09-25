@@ -5,6 +5,7 @@ import { Stack, Button, Flex, Textarea } from '@mantine/core'
 import { useGetCommentsQuery } from '@/hooks/useGetCommentsQuery'
 import { useMutation } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 const schema = z.object({
   content: z
@@ -22,6 +23,7 @@ export function CreateCommentForm({
   entityType: string
 }) {
   const { refetch } = useGetCommentsQuery(entity, entityType)
+  const router = useRouter()
 
   const form = useForm<FormData>({
     mode: 'uncontrolled',
@@ -50,6 +52,9 @@ export function CreateCommentForm({
       await mutateAsync({ content })
       form.reset()
       refetch()
+
+      // Update server side component
+      router.refresh()
     } catch (err: any) {
       toast.error(err?.message || 'Something went wrong')
     }

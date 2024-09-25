@@ -16,12 +16,10 @@ import { IconArrowLeft, IconMessage } from '@tabler/icons-react'
 import { useRouter } from 'next/navigation'
 import Avatar from 'boring-avatars'
 import { humanizeTime } from '@/utils/humanizeTime'
-import { nanoid } from 'nanoid'
 import { CommentSection } from '@/components/CommentSection'
 
-export function PostDetailsPage({ post }: { post: Post }) {
+export function PostDetailsPage({ post: { _id, createdAt, content, commentCount } }: { post: Post }) {
   const router = useRouter()
-  const { createdAt, content, commentCount } = post
   const theme = useMantineTheme()
 
   return (
@@ -41,7 +39,7 @@ export function PostDetailsPage({ post }: { post: Post }) {
           <Paper withBorder radius={10} shadow="sm" p={20} h="100%" mb={28}>
             <Flex gap={14} mb={16}>
               <Avatar
-                name={nanoid()}
+                name={_id}
                 variant="beam"
                 size={40}
                 style={{ flexShrink: 0 }}
@@ -70,7 +68,7 @@ export function PostDetailsPage({ post }: { post: Post }) {
               </Flex>
             </Flex>
           </Paper>
-          <CommentSection entity={post._id} entityType="Post" />
+          <CommentSection entity={_id} entityType="Post" />
         </Container>
       </Box>
     </Stack>
