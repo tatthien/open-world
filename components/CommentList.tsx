@@ -1,6 +1,7 @@
 import { useGetCommentsQuery } from '@/hooks/useGetCommentsQuery'
-import { Flex, Paper, Skeleton, Stack, Text } from '@mantine/core'
+import { Flex, getThemeColor, Paper, Skeleton, Stack, Text, useMantineTheme } from '@mantine/core'
 import { CommentItem } from './CommentItem'
+import { IconMessageChatbotFilled } from '@tabler/icons-react'
 
 export function CommentList({
   entity,
@@ -10,6 +11,7 @@ export function CommentList({
   entityType: string
 }) {
   const { data: comments, isLoading } = useGetCommentsQuery(entity, entityType)
+  const theme = useMantineTheme()
 
   if (isLoading) {
     return (
@@ -35,7 +37,14 @@ export function CommentList({
   }
 
   if (!comments || !comments.length) {
-    return <Text>Chưa có bình luận nào</Text>
+    return (
+      <Paper withBorder radius={10} shadow="sm" p={16}>
+        <Stack align='center' gap={8}>
+          <IconMessageChatbotFilled size={50} strokeWidth={1} color={getThemeColor('red.4', theme)} />
+          <Text ta='center' c='dark.3' fz='sm'>Chưa có bình luận nào</Text>
+        </Stack>
+      </Paper>
+    )
   }
 
   return (

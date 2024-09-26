@@ -1,11 +1,14 @@
 'use client'
 
 import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
-import { Text, Grid, Stack, Paper, Skeleton, Flex } from '@mantine/core'
+import { Text, Grid, Stack, Paper, Skeleton, Flex, getThemeColor, useMantineTheme } from '@mantine/core'
 import { PostItem } from './PostItem'
+import { IconMessageChatbot, IconMessageChatbotFilled } from '@tabler/icons-react'
 
 export function PostList({ topicId }: { topicId: string }) {
   const { data: posts, isLoading } = useGetPostsQuery({ topicId })
+  const theme = useMantineTheme()
+
   if (isLoading) {
     return (
       <Stack gap={16}>
@@ -30,7 +33,12 @@ export function PostList({ topicId }: { topicId: string }) {
   }
 
   if (!posts || !posts.length) {
-    return <Text>Chưa có chia sẻ nào</Text>
+    return <Paper withBorder radius={10} shadow="sm" p={16}>
+      <Stack align='center' gap={8}>
+        <IconMessageChatbotFilled size={50} strokeWidth={1} color={getThemeColor('red.4', theme)} />
+        <Text ta='center' c='dark.3' fz='sm'>Chưa có chia sẻ nào</Text>
+      </Stack>
+    </Paper>
   }
 
   return (
