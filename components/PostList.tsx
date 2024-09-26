@@ -3,7 +3,7 @@
 import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
 import { Text, Grid, Stack, Paper, Skeleton, Flex, getThemeColor, useMantineTheme } from '@mantine/core'
 import { PostItem } from './PostItem'
-import { IconMessageChatbot, IconMessageChatbotFilled } from '@tabler/icons-react'
+import { IconMessageChatbotFilled } from '@tabler/icons-react'
 
 export function PostList({ topicId }: { topicId: string }) {
   const { data: posts, isLoading } = useGetPostsQuery({ topicId })
