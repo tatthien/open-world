@@ -1,0 +1,8 @@
+.description {
+  color: var(--mantine-color-gray-7);
+}
+
+.input:not(:focus),
+.input:not(:focus-within) {
+  border-color: var(--mantine-color-gray-6);
+}

@@ -1,9 +1,11 @@
+'use client'
+
 import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
 import { Text, Grid, Stack, Paper, Skeleton, Flex } from '@mantine/core'
 import { PostItem } from './PostItem'
 
-export function PostList() {
-  const { data: posts, isLoading } = useGetPostsQuery()
+export function PostList({ topicId }: { topicId: string }) {
+  const { data: posts, isLoading } = useGetPostsQuery({ topicId })
   if (isLoading) {
     return (
       <Stack gap={16}>

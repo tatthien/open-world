@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 export function AppHeader() {
   return (
-    <Box py={16}>
+    <Box py={16} style={{ zIndex: 100 }}>
       <Container>
-        <Flex align="center" justify="space-between">
+        <Flex align="center" justify="center">
           <Link href={'/'} style={{ fontSize: 0 }}>
             <HeaderLogo width={48} />
           </Link>

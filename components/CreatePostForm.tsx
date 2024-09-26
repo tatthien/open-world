@@ -1,3 +1,5 @@
+'use client'
+
 import { useGetPostsQuery } from '@/hooks/useGetPostsQuery'
 import { z } from 'zod'
 import { useForm } from '@mantine/form'
@@ -12,8 +14,8 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function CreatePostForm() {
-  const { refetch } = useGetPostsQuery()
+export function CreatePostForm({ topicId }: { topicId: string }) {
+  const { refetch } = useGetPostsQuery({ topicId })
 
   const form = useForm<FormData>({
     mode: 'uncontrolled',
@@ -24,7 +26,7 @@ export function CreatePostForm() {
   })
 
   const handleSubmit = async ({ content }: FormData) => {
-    await fetch('/api/shares', {
+    await fetch(`/api/topics/${topicId}/posts`, {
       method: 'POST',
       body: JSON.stringify({ content }),
     })
@@ -41,6 +43,7 @@ export function CreatePostForm() {
           description="Thông tin được đăng dưới trạng thái ẩn danh"
           autosize
           minRows={2}
+          styles={{ input: { fontSize: '1rem' } }}
           key={form.key('content')}
           {...form.getInputProps('content')}
         />

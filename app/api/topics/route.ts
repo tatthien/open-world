@@ -1,21 +1,28 @@
 import { connectDatabase } from '@/lib/db'
-import Post from '@/lib/db/models/post'
+import Topic from '@/lib/db/models/topic'
 import { rateLimit } from '@/middlewares/rateLimit'
 import { NextRequest, NextResponse } from 'next/server'
 
 await connectDatabase()
 
 export async function GET() {
-  const posts = await Post.find({ status: 'published' })
-    .populate('commentCount')
+  const topics = await Topic.find({ status: 'published' })
     .sort({ createdAt: -1 })
-  return NextResponse.json({ data: posts }, { status: 200 })
+  return NextResponse.json({ data: topics }, { status: 200 })
 }
 
 export const POST = rateLimit(
   async (req: NextRequest) => {
     try {
       const body = await req.json()
+
+
+      if (!body.title) {
+        return NextResponse.json(
+          { message: 'title is missing' },
+          { status: 400 },
+        )
+      }
 
       if (!body.content) {
         return NextResponse.json(
@@ -24,16 +31,11 @@ export const POST = rateLimit(
         )
       }
 
-      if (!body.topic) {
-        return NextResponse.json(
-          { message: 'topic is missing' },
-          { status: 400 },
-        )
-      }
-
-      const post = new Post({
+      const post = new Topic({
+        title: body.title,
         content: body.content,
-        topic: body.topic,
+        backgroundImage: body.backgroundImage,
+        backgroundColor: body.backgroundColor,
       })
       await post.save()
 

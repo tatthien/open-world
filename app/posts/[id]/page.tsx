@@ -14,5 +14,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   if (!post) {
     redirect('/')
   }
+
   return <PostDetailsPage post={post} />
 }

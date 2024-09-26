@@ -1,0 +1,82 @@
+.wrapper {
+  aspect-ratio: 4/3;
+  position: relative;
+  border-radius: rem(10);
+  overflow: hidden;
+
+  &:hover {
+    .background {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  padding: rem(12);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.title {
+  font-weight: 600;
+  line-height: 1.2;
+  color: #fff;
+  font-size: rem(20);
+}
+
+.metadata {
+  color: #fff;
+  font-weight: 500;
+  font-size: rem(12);
+}
+
+.background,
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.background {
+  z-index: 8;
+  object-fit: cover;
+  border-radius: rem(10);
+  transition: transform 0.3s ease-in-out;
+}
+
+.overlay {
+  background-color: var(--background-color);
+  border-radius: rem(10);
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: rem(10);
+    background: linear-gradient(rgba(0, 0, 0, 0) 62%,
+        rgba(0, 0, 0, 0.004) 63.94%,
+        rgba(0, 0, 0, 0.016) 65.89%,
+        rgba(0, 0, 0, 0.03) 67.83%,
+        rgba(0, 0, 0, 0.06) 69.78%,
+        rgba(0, 0, 0, 0.094) 71.72%,
+        rgba(0, 0, 0, 0.133) 73.67%,
+        rgba(0, 0, 0, 0.176) 75.61%,
+        rgba(0, 0, 0, 0.224) 77.56%,
+        rgba(0, 0, 0, 0.267) 79.5%,
+        rgba(0, 0, 0, 0.306) 81.44%,
+        rgba(0, 0, 0, 0.34) 83.39%,
+        rgba(0, 0, 0, 0.37) 85.33%,
+        rgba(0, 0, 0, 0.384) 87.28%,
+        rgba(0, 0, 0, 0.396) 89.22%,
+        rgba(0, 0, 0, 0.4) 91.17%);
+  }
+}

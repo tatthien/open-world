@@ -1,6 +1,10 @@
-import { Button, Container, createTheme, rem } from '@mantine/core'
+import { Button, Container, createTheme, rem, Textarea, TextInput } from '@mantine/core'
 import { Inter } from 'next/font/google'
 import { colors } from './colors'
+
+import '@mantine/core/styles.css'
+
+import inputStyles from './input.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -36,5 +40,17 @@ export const theme = createTheme({
         },
       }),
     }),
+    TextInput: TextInput.extend({
+      classNames: {
+        description: inputStyles.description,
+        input: inputStyles.input,
+      }
+    }),
+    Textarea: Textarea.extend({
+      classNames: {
+        description: inputStyles.description,
+        input: inputStyles.input,
+      }
+    })
   },
 })

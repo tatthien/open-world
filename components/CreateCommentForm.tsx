@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 const schema = z.object({
   content: z
     .string()
-    .min(1, { message: 'Nội dung chia sẻ không được để trống' }),
+    .min(1, { message: 'Nội dung bình luận không được để trống' }),
 })
 
 type FormData = z.infer<typeof schema>
@@ -68,6 +68,7 @@ export function CreateCommentForm({
           autosize
           minRows={2}
           key={form.key('content')}
+          styles={{ input: { fontSize: '1rem' } }}
           {...form.getInputProps('content')}
         />
         <Flex justify="end">

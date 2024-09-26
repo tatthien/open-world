@@ -1,8 +1,11 @@
-import mongoose from 'mongoose'
-import Topic from './topic'
-import Comment from './comment'
+import mongoose from "mongoose";
 
 const schema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, 'title is required'],
+    maxLength: [200, 'title cannot be more than 200 characters'],
+  },
   content: {
     type: String,
     required: [true, 'content is required'],
@@ -12,6 +15,12 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  backgroundImage: {
+    type: String,
+  },
+  backgroundColor: {
+    type: String,
+  },
   status: {
     type: String,
     enum: {
@@ -20,27 +29,15 @@ const schema = new mongoose.Schema({
     },
     default: 'published',
   },
-  topic: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: Topic,
-    require: [true, 'topic is required'],
-  }
 })
 
-schema.virtual('comments', {
-  ref: Comment,
+schema.virtual('posts', {
+  ref: 'Post',
   localField: '_id',
-  foreignField: 'entity',
-})
-
-schema.virtual('commentCount', {
-  ref: Comment,
-  localField: '_id',
-  foreignField: 'entity',
-  count: true,
+  foreignField: 'topic',
 })
 
 schema.set('toJSON', { virtuals: true })
 schema.set('toObject', { virtuals: true })
 
-export default mongoose.models.Post || mongoose.model('Post', schema)
+export default mongoose.models.Topic || mongoose.model('Topic', schema)
